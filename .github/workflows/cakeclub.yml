@@ -2,7 +2,7 @@ name: Cakeclub Bot
 
 on:
   schedule:
-    - cron: '0 10 * * 1'   # Lunes 11:00 España (10:00 UTC)
+    - cron: '0 10 * * 3'   # Wednesday 11:00 España (10:00 UTC)
   workflow_dispatch:
 
 jobs:
