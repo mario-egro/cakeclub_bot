@@ -53,13 +53,13 @@ def enviar_mail(actual, proxima):
     cuerpo = f"""
 CAKECLUB TIME 🍰
 
-Esta semana le toca a:
-👉 {actual}
+This week's Cake will be brought on Thursday by:
+ 👉 {actual}
 
-La semana que viene le tocará a:
+Next week it will be:
 👉 {proxima}
 
-Planificad vuestros hornos en consecuencia.
+Enjoy it!
 """
     msg.attach(MIMEText(cuerpo.strip(), "plain"))
 
