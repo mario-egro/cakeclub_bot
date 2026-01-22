@@ -34,25 +34,32 @@ SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
 
 
-def persona_de_la_semana():
+def persona_de_la_semana(offset=0):
+    """
+    offset=0 -> esta semana
+    offset=1 -> semana próxima
+    """
     semana = datetime.date.today().isocalendar()[1]
-    return personas[semana % len(personas)]
+    indice = (semana + offset) % len(personas)
+    return personas[indice]
 
 
-def enviar_mail(persona):
+def enviar_mail(actual, proxima):
     msg = MIMEMultipart()
     msg["From"] = EMAIL
     msg["To"] = ", ".join(destinatarios)
-    msg["Subject"] = f"CAKECLUB TIME: {persona}"
+    msg["Subject"] = f"CAKECLUB TIME: {actual}"
 
     cuerpo = f"""
 CAKECLUB TIME 🍰
 
-This week's Cake will be brought on Thursday by:
+Esta semana le toca a:
+👉 {actual}
 
-👉 {persona}
+La semana que viene le tocará a:
+👉 {proxima}
 
-Enjoy it!
+Planificad vuestros hornos en consecuencia.
 """
     msg.attach(MIMEText(cuerpo.strip(), "plain"))
 
@@ -63,5 +70,6 @@ Enjoy it!
 
 
 if __name__ == "__main__":
-    persona = persona_de_la_semana()
-    enviar_mail(persona)
+    persona_actual = persona_de_la_semana(offset=0)
+    persona_proxima = persona_de_la_semana(offset=1)
+    enviar_mail(persona_actual, persona_proxima)
